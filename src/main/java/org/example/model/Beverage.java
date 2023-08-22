@@ -12,7 +12,7 @@ public class Beverage extends Product {
 
     @Override
     public String examine() {
-        return "{ id: " + getId() + ", beverage: " + getProductName() + " with " + fatContent + "% fat }";
+        return "{ id: " + getId() + ", beverage: " + getProductName() + " with " + fatContent + " % fat" + ", price: " + getPrice() + "}";
     }
 
     @Override

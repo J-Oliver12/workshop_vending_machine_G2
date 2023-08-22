@@ -1,10 +1,12 @@
 package org.example.model;
 
+
+
 public abstract class Product {
 
     private final int id;
-    private double price;
-    private String productName;
+    private final double price;
+    private final String productName;
 
 
     public Product(int id, double price, String productName) {
@@ -34,5 +36,6 @@ public abstract class Product {
     public String getProductName() {
         return productName;
     }
+
 
 }

@@ -12,12 +12,13 @@ public class App
 {
     public static void main( String[] args ) {
         Product[] products = {
-                new Beverage(1, "Pucko", true, 3, 45),
+                new Beverage(1, "pucko", true, 3, 45),
                 new Beverage(2, "Milk", false, 1.5, 25),
                 new Fruit(3, "Banana", false, 15),
                 new Fruit(4, "Red apple", true, 24),
-                new Snack(5, 20, "Sour creme Chips"),
-                new Snack(6, 18, "Snickers")
+                new Snack(5, 20, "Sour creme Chips", false),
+                new Snack(6, 18, "Snickers", false),
+                new Snack(7, 28, "Granola bar", true),
         };
         VendingMachine vendingMachine = new VendingMachineManager(products);
 
@@ -26,47 +27,63 @@ public class App
             System.out.println("-----");
         }
 
+
         System.out.println("---------------------------------------");
 
         vendingMachine.addCurrency(50);
         Product redApple = vendingMachine.request(4);
         System.out.println(redApple.use());
-        System.out.println(vendingMachine.getBalance());
+        System.out.println("Your current balance is: " + vendingMachine.getBalance());
+        System.out.println();
+
 
         System.out.println("---------------------------------------");
 
         vendingMachine.addCurrency(100);
         Product pucko = vendingMachine.request(1);
         System.out.println(pucko.use());
-        System.out.println(vendingMachine.getBalance());
+        System.out.println("Your current balance is: " + vendingMachine.getBalance());
 
         System.out.println("---------------------------------------");
 
         vendingMachine.addCurrency(20);
         Product banana = vendingMachine.request(3);
         System.out.println(banana.use());
-        System.out.println(vendingMachine.getBalance());
+        System.out.println("Your current balance is: " + vendingMachine.getBalance());
+
 
         System.out.println("---------------------------------------");
 
         vendingMachine.addCurrency(200);
         Product milk = vendingMachine.request(2);
         System.out.println(milk.use());
-        System.out.println(vendingMachine.getBalance());
+        System.out.println("Your current balance is: " + vendingMachine.getBalance());
+
 
         System.out.println("---------------------------------------");
 
         vendingMachine.addCurrency(100);
         Product snickers = vendingMachine.request(6);
         System.out.println(snickers.use());
-        System.out.println(vendingMachine.getBalance());
+        System.out.println("Your current balance is: " + vendingMachine.getBalance());
+
 
         System.out.println("---------------------------------------");
 
         vendingMachine.addCurrency(500);
         Product sourChips = vendingMachine.request(5);
         System.out.println(sourChips.use());
-        System.out.println(vendingMachine.getBalance());
+        System.out.println("Your current balance is: " + vendingMachine.getBalance());
+
+
+        System.out.println("---------------------------------------");
+
+        vendingMachine.addCurrency(100);
+        Product GranolaBar = vendingMachine.request(7);
+        System.out.println(GranolaBar.use());
+        System.out.println("Your current balance is: " + vendingMachine.getBalance());
+
+
 
     }
 }

@@ -11,7 +11,7 @@ public class Fruit extends Product {
 
     @Override
     public String examine() {
-        return "{ id: " + getId() + ", fruit: " + getProductName() + " }";
+        return "{ id: " + getId() + ", fruit: " + getProductName() + ", price: " + getPrice() + " }";
     }
 
 

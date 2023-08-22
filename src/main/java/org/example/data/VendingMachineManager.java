@@ -11,6 +11,7 @@ public class VendingMachineManager implements VendingMachine {
 
     public VendingMachineManager(Product[] products) {
         this.products = products;
+        this.depositPool = 0;
     }
 
 
@@ -19,8 +20,10 @@ public class VendingMachineManager implements VendingMachine {
         for (int validDenomination : VALID_DENOMINATIONS) {
             if (validDenomination == amount) {
                 depositPool += amount;
+                return;
             }
         }
+        throw new IllegalArgumentException("Invalid currency denomination.");
     }
 
     @Override
@@ -32,8 +35,10 @@ public class VendingMachineManager implements VendingMachine {
     public Product request(int id) {
         for (Product product : products) {
             if (product.getId() == id) {
-                if (product.getPrice() <= depositPool) {
-                    depositPool = (int) (depositPool - product.getPrice());
+                int productPrice = (int) product.getPrice();
+                if (productPrice <= depositPool) {
+                    depositPool -= productPrice;
+                    endSession();
                     return product;
                 } else {
                     throw new RuntimeException("Product " + product.getProductName() + " is to expensive");
@@ -42,7 +47,6 @@ public class VendingMachineManager implements VendingMachine {
         }
         throw new RuntimeException("Could not find the Product with id " + id);
     }
-
 
     @Override
     public int endSession() {
@@ -54,13 +58,12 @@ public class VendingMachineManager implements VendingMachine {
 
     @Override
     public String getDescription(int id) {
-        String notFound = "Could not find the product with id " + id;
         for (Product product : products) {
             if (product.getId() == id) {
                 return product.examine().concat(" price: " + product.getPrice());
             }
         }
-        return notFound;
+        throw new IllegalArgumentException("Could not find the product with id " + id);
     }
 
 
@@ -72,4 +75,25 @@ public class VendingMachineManager implements VendingMachine {
         }
         return productsAsString;
     }
+
+    public int calculateChange(int amountPaid, int productPrice) {
+        if (amountPaid >= productPrice) {
+            return amountPaid - productPrice;
+        } else {
+            throw new RuntimeException("Insufficient payment for the product.");
+        }
+    }
+
+    public void processTransaction(int productId) {
+        Product product = request(productId);
+        int change = calculateChange(depositPool, (int) product.getPrice());
+        System.out.println(product.use());
+        System.out.println("Change: " + change);
+        System.out.println("Your current balance is: " + getBalance());
+        endSession();
+    }
+
+
+
+
 }
